@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TaskFlow | Gestión Inteligente de Proyectos</title>
+    <title>TaskFlow | App de Tareas Interactiva</title>
     <style>
         * {
             margin: 0;
@@ -14,7 +14,7 @@
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             color: #1f2937;
-            background-color: #f9fafb;
+            background-color: #f3f4f6;
             line-height: 1.6;
         }
 
@@ -22,7 +22,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 1.5rem 8%;
+            padding: 1.2rem 8%;
             background-color: #ffffff;
             box-shadow: 0 1px 3px rgba(0,0,0,0.1);
         }
@@ -36,49 +36,104 @@
         .btn-nav {
             background-color: #2563eb;
             color: white;
-            padding: 0.6rem 1.2rem;
+            padding: 0.5rem 1rem;
             border-radius: 6px;
             text-decoration: none;
             font-weight: 600;
         }
-
         .hero {
-            padding: 5rem 8%;
+            padding: 3rem 8% 2rem;
             text-align: center;
-            background: linear-gradient(180deg, #eff6ff 0%, #f9fafb 100%);
+            background: linear-gradient(180deg, #eff6ff 0%, #f3f4f6 100%);
         }
 
         .hero h1 {
-            font-size: 2.8rem;
+            font-size: 2.4rem;
             color: #1e3a8a;
-            margin-bottom: 1rem;
+            margin-bottom: 0.5rem;
         }
 
         .hero p {
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             color: #4b5563;
             max-width: 600px;
-            margin: 0 auto 2rem;
+            margin: 0 auto;
         }
-
-        .features {
-            padding: 4rem 8%;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-        }
-
-        .card {
-            background: white;
+        .app-container {
+            max-width: 600px;
+            margin: 2rem auto 4rem;
+            background: #ffffff;
             padding: 2rem;
-            border-radius: 8px;
-            border: 1px solid #e5e7eb;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+            border-radius: 10px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
         }
 
-        .card h3 {
-            color: #1e3a8a;
-            margin-bottom: 0.5rem;
+        .task-form {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .task-form input {
+            flex: 1;
+            padding: 0.75rem 1rem;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            font-size: 1rem;
+            outline: none;
+        }
+
+        .task-form input:focus {
+            border-color: #2563eb;
+        }
+
+        .task-form button {
+            background-color: #2563eb;
+            color: white;
+            border: none;
+            padding: 0.75rem 1.25rem;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .task-form button:hover {
+            background-color: #1d4ed8;
+        }
+
+        .task-list {
+            list-style: none;
+        }
+
+        .task-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem 1rem;
+            border-bottom: 1px solid #e5e7eb;
+            transition: background 0.2s;
+        }
+
+        .task-item:last-child {
+            border-bottom: none;
+        }
+
+        .task-item.completed span {
+            text-decoration: line-through;
+            color: #9ca3af;
+        }
+
+        .task-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .btn-action {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1.1rem;
         }
 
         footer {
@@ -93,30 +148,23 @@
 <body>
 
     <header>
-        <div class="logo">⚡ TaskFlow</div>
-        <a href="#contacto" class="btn-nav">Probar Gratis</a>
+        <div class="logo">⚡ TaskFlow App</div>
+        <a href="../" class="btn-nav">← Volver al Portafolio</a>
     </header>
 
     <main>
         <section class="hero">
-            <h1>Organiza tu trabajo sin complicaciones</h1>
-            <p>La plataforma que optimiza el flujo de trabajo de equipos remotos con automatización sencilla y tableros interactivos.</p>
-            <a href="#contacto" class="btn-nav">Comenzar Ahora</a>
+            <h1>Gestor de Tareas Interactivo</h1>
+            <p>Agrega, marca y gestiona tus actividades pendientes con guardado automático.</p>
         </section>
 
-        <section class="features">
-            <div class="card">
-                <h3>🚀 Alta Velocidad</h3>
-                <p>Gestiona tus tareas diarias sin fricción con una interfaz intuitiva y rápida.</p>
-            </div>
-            <div class="card">
-                <h3>📊 Métricas Claras</h3>
-                <p>Visualiza el progreso de tus proyectos en tiempo real con reportes automáticos.</p>
-            </div>
-            <div class="card">
-                <h3>🔒 Máxima Seguridad</h3>
-                <p>Tus datos protegidos con cifrado de extremo a extremo y respaldos diarios.</p>
-            </div>
+        <section class="app-container">
+            <form id="task-form" class="task-form">
+                <input type="text" id="task-input" placeholder="Escribe una nueva tarea..." required>
+                <button type="submit">Agregar</button>
+            </form>
+
+            <ul id="task-list" class="task-list"></ul>
         </section>
     </main>
 
@@ -124,5 +172,62 @@
         <p>&copy; 2026 TaskFlow - Creado por Diego Ayala</p>
     </footer>
 
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const form = document.getElementById('task-form');
+            const input = document.getElementById('task-input');
+            const list = document.getElementById('task-list');
+
+            let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+
+            function saveTasks() {
+                localStorage.setItem('tasks', JSON.stringify(tasks));
+            }
+
+            function renderTasks() {
+                list.innerHTML = '';
+                tasks.forEach((task, index) => {
+                    const li = document.createElement('li');
+                    li.className = `task-item ${task.completed ? 'completed' : ''}`;
+                    
+                    li.innerHTML = `
+                        <span>${task.text}</span>
+                        <div class="task-actions">
+                            <button class="btn-action" onclick="toggleTask(${index})">
+                                ${task.completed ? '↩️' : '✅'}
+                            </button>
+                            <button class="btn-action" onclick="deleteTask(${index})">❌</button>
+                        </div>
+                    `;
+                    list.appendChild(li);
+                });
+            }
+
+            window.toggleTask = (index) => {
+                tasks[index].completed = !tasks[index].completed;
+                saveTasks();
+                renderTasks();
+            };
+
+            window.deleteTask = (index) => {
+                tasks.splice(index, 1);
+                saveTasks();
+                renderTasks();
+            };
+
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const text = input.value.trim();
+                if (text) {
+                    tasks.push({ text, completed: false });
+                    saveTasks();
+                    renderTasks();
+                    input.value = '';
+                }
+            });
+
+            renderTasks();
+        });
+    </script>
 </body>
 </html>
