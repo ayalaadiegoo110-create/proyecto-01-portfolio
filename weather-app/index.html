@@ -126,12 +126,6 @@
             margin: 0.5rem 0;
         }
 
-        .desc {
-            text-transform: capitalize;
-            color: #cbd5e1;
-            font-size: 1.1rem;
-        }
-
         .details {
             display: flex;
             justify-content: space-around;
@@ -165,20 +159,19 @@
 
     <main>
         <h1>Consulta el Clima en Vivo</h1>
-        <p class="subtitle">Aplicación conectada a la API pública de OpenWeatherMap</p>
+        <p class="subtitle">Aplicación conectada a la API pública de Open-Meteo</p>
 
         <div class="search-card">
             <div class="search-box">
-                <input type="text" id="city-input" placeholder="Ej: Asuncion, Madrid, Tokyo...">
+                <input type="text" id="city-input" placeholder="Ej: Asuncion, Ciudad del Este, Madrid...">
                 <button id="search-btn">Buscar</button>
             </div>
 
-            <p id="error-msg" class="error">Ciudad no encontrada. Intenta de nuevo.</p>
+            <p id="error-msg" class="error">Ciudad no encontrada. Intenta con otro nombre.</p>
 
             <div id="weather-info" class="weather-info">
                 <h2 id="city-name">--</h2>
                 <div id="temp" class="temp">--°C</div>
-                <div id="desc" class="desc">--</div>
                 <div class="details">
                     <div>Humedad: <span id="humidity">--</span>%</div>
                     <div>Viento: <span id="wind">--</span> km/h</div>
@@ -200,21 +193,30 @@
         async function getWeather(city) {
             try {
                 errorMsg.style.display = 'none';
-                
-                // Usamos API de OpenWeather con clave activa
-                const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${encodeURIComponent(city)}&appid=61f3d3570624d7cbdb43d4d732c51081&units=metric&lang=es`);
-                
-                if (!response.ok) {
+
+             
+                const geoResponse = await fetch(`https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(city)}&count=1&language=es&format=json`);
+                const geoData = await geoResponse.json();
+
+                if (!geoData.results || geoData.results.length === 0) {
                     throw new Error('Ciudad no encontrada');
                 }
 
-                const data = await response.json();
+                const location = geoData.results[0];
+                const lat = location.latitude;
+                const lon = location.longitude;
+                const cityName = `${location.name}, ${location.country || ''}`;
+
                 
-                document.getElementById('city-name').textContent = `${data.name}, ${data.sys.country}`;
-                document.getElementById('temp').textContent = `${Math.round(data.main.temp)}°C`;
-                document.getElementById('desc').textContent = data.weather[0].description;
-                document.getElementById('humidity').textContent = data.main.humidity;
-                document.getElementById('wind').textContent = Math.round(data.wind.speed * 3.6);
+                const weatherResponse = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,relative_humidity_2m,wind_speed_10m`);
+                const weatherData = await weatherResponse.json();
+
+                const current = weatherData.current;
+
+                document.getElementById('city-name').textContent = cityName;
+                document.getElementById('temp').textContent = `${Math.round(current.temperature_2m)}°C`;
+                document.getElementById('humidity').textContent = current.relative_humidity_2m;
+                document.getElementById('wind').textContent = Math.round(current.wind_speed_10m);
 
                 weatherInfo.style.display = 'block';
             } catch (error) {
