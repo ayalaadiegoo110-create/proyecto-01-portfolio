@@ -169,7 +169,7 @@
 
         <div class="search-card">
             <div class="search-box">
-                <input type="text" id="city-input" placeholder="Ej: Asunción, Madrid, Tokyo...">
+                <input type="text" id="city-input" placeholder="Ej: Asuncion, Madrid, Tokyo...">
                 <button id="search-btn">Buscar</button>
             </div>
 
@@ -192,7 +192,6 @@
     </footer>
 
     <script>
-        const apiKey = 'b1b15e88fa797225412429c1c50c122a11'; // Demo API key
         const searchBtn = document.getElementById('search-btn');
         const cityInput = document.getElementById('city-input');
         const weatherInfo = document.getElementById('weather-info');
@@ -201,7 +200,9 @@
         async function getWeather(city) {
             try {
                 errorMsg.style.display = 'none';
-                const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=e38f1a2656360c6f14a0cb7974a4fa8f&units=metric&lang=es`);
+                
+                // Usamos API de OpenWeather con clave activa
+                const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${encodeURIComponent(city)}&appid=61f3d3570624d7cbdb43d4d732c51081&units=metric&lang=es`);
                 
                 if (!response.ok) {
                     throw new Error('Ciudad no encontrada');
