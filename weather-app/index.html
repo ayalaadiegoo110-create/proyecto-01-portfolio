@@ -163,7 +163,7 @@
 
         <div class="search-card">
             <div class="search-box">
-                <input type="text" id="city-input" placeholder="Ej: Asuncion, Ciudad del Este, Madrid...">
+                <input type="text" id="city-input" placeholder="Ej: Asuncion, Madrid, Tokyo...">
                 <button id="search-btn">Buscar</button>
             </div>
 
@@ -194,8 +194,12 @@
             try {
                 errorMsg.style.display = 'none';
 
-             
-                const geoResponse = await fetch(`https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(city)}&count=1&language=es&format=json`);
+                // 1. Geocoding
+                const geoUrl = `https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(city)}&count=1&language=es&format=json`;
+                const geoResponse = await fetch(geoUrl);
+                
+                if (!geoResponse.ok) throw new Error('Error al conectar con el servicio de geolocalización');
+
                 const geoData = await geoResponse.json();
 
                 if (!geoData.results || geoData.results.length === 0) {
@@ -205,12 +209,15 @@
                 const location = geoData.results[0];
                 const lat = location.latitude;
                 const lon = location.longitude;
-                const cityName = `${location.name}, ${location.country || ''}`;
+                const cityName = `${location.name}${location.country ? ', ' + location.country : ''}`;
 
+                // 2. Consulta de clima
+                const weatherUrl = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,relative_humidity_2m,wind_speed_10m`;
+                const weatherResponse = await fetch(weatherUrl);
                 
-                const weatherResponse = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,relative_humidity_2m,wind_speed_10m`);
-                const weatherData = await weatherResponse.json();
+                if (!weatherResponse.ok) throw new Error('Error al obtener datos meteorológicos');
 
+                const weatherData = await weatherResponse.json();
                 const current = weatherData.current;
 
                 document.getElementById('city-name').textContent = cityName;
@@ -220,6 +227,7 @@
 
                 weatherInfo.style.display = 'block';
             } catch (error) {
+                console.error('Detalle del error:', error);
                 weatherInfo.style.display = 'none';
                 errorMsg.style.display = 'block';
             }
