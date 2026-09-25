@@ -1,9 +1,14 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const titulo = document.getElementById('titulo');
-    const boton = document.getElementById('btn-cambiar');
+    const btnContacto = document.getElementById('btn-contacto');
+    const infoContacto = document.getElementById('info-contacto');
 
-    boton.addEventListener('click', () => {
-        titulo.textContent = '¡Listo para crear proyectos internacionales!';
-        titulo.style.color = '#28a745';
+    btnContacto.addEventListener('click', () => {
+        if (infoContacto.textContent === '') {
+            infoContacto.textContent = '📧 Correo de contacto: ayalaadiegoo110@gmail.com';
+            btnContacto.textContent = 'Ocultar Correo';
+        } else {
+            infoContacto.textContent = '';
+            btnContacto.textContent = 'Mostrar Correo';
+        }
     });
 });

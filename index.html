@@ -3,15 +3,67 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mi Portafolio Web</title>
+    <title>Portafolio | Desarrollador Web Frontend</title>
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
 
-    <header>
-        <h1 id="titulo">Hola, soy Desarrollador Web</h1>
-        <button id="btn-cambiar">Cambiar mensaje</button>
+    <header class="navbar">
+        <div class="logo">Diego Ayala</div>
+        <nav>
+            <ul>
+                <li><a href="#inicio">Inicio</a></li>
+                <li><a href="#habilidades">Habilidades</a></li>
+                <li><a href="#proyectos">Proyectos</a></li>
+                <li><a href="#contacto">Contacto</a></li>
+            </ul>
+        </nav>
     </header>
+
+    <main>
+        <section id="inicio" class="hero">
+            <div class="hero-content">
+                <h1>Hola, soy <span class="highlight">Desarrollador Web</span></h1>
+                <p>Especializado en crear sitios web interactivos, responsivos y modernos con HTML, CSS y JavaScript.</p>
+                <div class="hero-buttons">
+                    <a href="#proyectos" class="btn primary">Ver Proyectos</a>
+                    <a href="#contacto" class="btn secondary">Contactar</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="habilidades" class="skills">
+            <h2>Mis Habilidades</h2>
+            <div class="skills-grid">
+                <div class="skill-card">HTML5</div>
+                <div class="skill-card">CSS3</div>
+                <div class="skill-card">JavaScript (ES6+)</div>
+                <div class="skill-card">Git & GitHub</div>
+            </div>
+        </section>
+
+        <section id="proyectos" class="projects">
+            <h2>Proyectos Destacados</h2>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <h3>Proyecto 01: Mi Portafolio</h3>
+                    <p>Sitio web personal alojado en GitHub Pages para mostrar mi trabajo y habilidades.</p>
+                    <span class="tag">HTML / CSS / JS</span>
+                </div>
+            </div>
+        </section>
+
+        <section id="contacto" class="contact">
+            <h2>Contacto</h2>
+            <p>¿Tienes un proyecto en mente o buscas un desarrollador para tu equipo?</p>
+            <button id="btn-contacto" class="btn primary">Mostrar Correo</button>
+            <p id="info-contacto" class="hidden-info"></p>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Diego Ayala - Desarrollador Web Frontend</p>
+    </footer>
 
     <script src="js/main.js"></script>
 </body>
