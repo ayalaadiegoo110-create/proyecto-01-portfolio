@@ -1,14 +1,38 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const btnContacto = document.getElementById('btn-contacto');
-    const infoContacto = document.getElementById('info-contacto');
+    // 1. Selector de Modo (Claro / Oscuro)
+    const themeSelect = document.getElementById('theme-select');
+    const currentTheme = localStorage.getItem('theme') || 'light';
 
-    btnContacto.addEventListener('click', () => {
-        if (infoContacto.textContent === '') {
-            infoContacto.textContent = '📧 Correo de contacto: ayalaadiegoo110@gmail.com';
-            btnContacto.textContent = 'Ocultar Correo';
-        } else {
-            infoContacto.textContent = '';
-            btnContacto.textContent = 'Mostrar Correo';
-        }
-    });
+    // Aplicar tema inicial guardado
+    document.documentElement.setAttribute('data-theme', currentTheme);
+    if (themeSelect) {
+        themeSelect.value = currentTheme;
+
+        themeSelect.addEventListener('change', (e) => {
+            const selectedTheme = e.target.value;
+            document.documentElement.setAttribute('data-theme', selectedTheme);
+            localStorage.setItem('theme', selectedTheme);
+        });
+    }
+
+    // 2. Formulario de Contacto
+    const contactForm = document.getElementById('contact-form');
+    const formResponse = document.getElementById('form-response');
+
+    if (contactForm) {
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            if (formResponse) {
+                formResponse.textContent = '¡Gracias por tu mensaje! Me pondré en contacto contigo pronto.';
+                formResponse.style.display = 'block';
+            }
+
+            contactForm.reset();
+
+            setTimeout(() => {
+                if (formResponse) formResponse.style.display = 'none';
+            }, 5000);
+        });
+    }
 });
