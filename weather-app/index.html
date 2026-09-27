@@ -75,6 +75,7 @@
             border-radius: 12px;
             border: 1px solid #334155;
             box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+            width: 100%;
         }
 
         .search-box {
@@ -148,6 +149,46 @@
             color: #64748b;
             font-size: 0.9rem;
         }
+
+        
+        @media (max-width: 600px) {
+            header {
+                flex-direction: column;
+                gap: 0.8rem;
+                padding: 1rem 5%;
+                text-align: center;
+            }
+
+            main {
+                padding: 1.5rem 1rem;
+            }
+
+            h1 {
+                font-size: 1.7rem;
+            }
+
+            p.subtitle {
+                font-size: 0.9rem;
+                margin-bottom: 1.5rem;
+            }
+
+            .search-card {
+                padding: 1.25rem;
+            }
+
+            .search-box {
+                flex-direction: column;
+            }
+
+            .search-box button {
+                width: 100%;
+            }
+
+            .details {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+        }
     </style>
 </head>
 <body>
@@ -194,7 +235,7 @@
             try {
                 errorMsg.style.display = 'none';
 
-                // 1. Geocoding
+               
                 const geoUrl = `https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(city)}&count=1&language=es&format=json`;
                 const geoResponse = await fetch(geoUrl);
                 
@@ -211,7 +252,7 @@
                 const lon = location.longitude;
                 const cityName = `${location.name}${location.country ? ', ' + location.country : ''}`;
 
-                // 2. Consulta de clima
+                
                 const weatherUrl = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,relative_humidity_2m,wind_speed_10m`;
                 const weatherResponse = await fetch(weatherUrl);
                 
