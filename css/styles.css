@@ -220,7 +220,7 @@ footer {
     font-size: 0.9rem;
 }
 
-/* Estilos para el Formulario de Contacto (Paso B) */
+
 .contact-subtitle {
     margin-bottom: 2rem;
     color: var(--text-secondary);
@@ -290,3 +290,4 @@ footer {
 .contact-links a:hover {
     text-decoration: underline;
 }
+
