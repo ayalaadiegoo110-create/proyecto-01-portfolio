@@ -1,12 +1,13 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // 1. Selector de Modo (Claro / Oscuro)
+  
     const themeSelect = document.getElementById('theme-select');
-    const currentTheme = localStorage.getItem('theme') || 'light';
+    const savedTheme = localStorage.getItem('theme') || 'light';
 
-    // Aplicar tema inicial guardado
-    document.documentElement.setAttribute('data-theme', currentTheme);
+  
+    document.documentElement.setAttribute('data-theme', savedTheme);
+    
     if (themeSelect) {
-        themeSelect.value = currentTheme;
+        themeSelect.value = savedTheme;
 
         themeSelect.addEventListener('change', (e) => {
             const selectedTheme = e.target.value;
@@ -15,24 +16,15 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // 2. Formulario de Contacto
-    const contactForm = document.getElementById('contact-form');
-    const formResponse = document.getElementById('form-response');
+    
+    const btnContacto = document.getElementById('btn-contacto');
+    const infoContacto = document.getElementById('info-contacto');
 
-    if (contactForm) {
-        contactForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            
-            if (formResponse) {
-                formResponse.textContent = '¡Gracias por tu mensaje! Me pondré en contacto contigo pronto.';
-                formResponse.style.display = 'block';
-            }
-
-            contactForm.reset();
-
-            setTimeout(() => {
-                if (formResponse) formResponse.style.display = 'none';
-            }, 5000);
+    if (btnContacto && infoContacto) {
+        btnContacto.addEventListener('click', () => {
+            infoContacto.textContent = '✉️ ayalaadiegoo110@gmail.com';
+            infoContacto.style.display = 'block';
+            btnContacto.style.display = 'none';
         });
     }
 });
