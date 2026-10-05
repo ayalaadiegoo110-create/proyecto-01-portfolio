@@ -1,4 +1,4 @@
-/* Variables de tema */
+
 :root {
     --bg-primary: #ffffff;
     --bg-secondary: #f8fafc;
@@ -46,7 +46,7 @@ body {
     width: 100%;
 }
 
-/* Navbar */
+
 .navbar {
     display: flex;
     justify-content: space-between;
